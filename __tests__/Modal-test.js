@@ -1,4 +1,4 @@
-// __tests__/Modal-test.js
+//__test_/Modal-test.js
 import 'react-native';
 import React from 'react';
 import {render, fireEvent, act} from '@testing-library/react-native';
@@ -11,8 +11,7 @@ describe('Pop up and alerts', () => {
     expect(component.getByTestId('modal-component')).toBeDefined();
     expect(component.getByText('Show Modal')).toBeDefined();
   });
-
-  it('press button and show popup and info for user', () => {
+  it('press button and show pop up and info for user', () => {
     let component = render(<Modal />);
 
     const onPress = component.getByText('Show Modal');
@@ -39,10 +38,7 @@ describe('Pop up and alerts', () => {
       fireEvent(closeModal, 'press');
     });
 
-    component.rerender(<Modal />);
-
-    const isModalDeactivated = component.queryAllByTestId('alert-component');
-
-    expect(isModalDeactivated.length).toEqual(0);
+    const isModalDeactivadated = component.queryAllByTestId('alert-component');
+    expect(isModalDeactivadated.length).toEqual(0);
   });
 });

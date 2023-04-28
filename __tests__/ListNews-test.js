@@ -1,17 +1,16 @@
-// __tests__/ListNews.test.js
-
+//__test_/ListNews-test.js
+import 'react-native';
 import React from 'react';
-import {render, waitFor} from '@testing-library/react-native';
+import {render, fireEvent, act, waitFor} from '@testing-library/react-native';
 import ListNews from '../src/components/ListNews';
 import Item from '../src/components/ListNews/Item';
 
-describe('ListNews component', () => {
+describe('ListNews Component', () => {
   test('should render list of news when data has been fetched', async () => {
     const mockedNews = [
       {id: 1, title: 'News 1'},
       {id: 2, title: 'News 2'},
     ];
-
     const mockJsonPromise = Promise.resolve(mockedNews);
     const mockFetchPromise = Promise.resolve({
       json: () => mockJsonPromise,
@@ -24,19 +23,18 @@ describe('ListNews component', () => {
 
     const listContainer = getByTestId('list-news-container');
     const renderedItems = listContainer.findAllByType(Item);
-
     expect(renderedItems).toHaveLength(mockedNews.length);
 
     global.fetch.mockClear();
     delete global.fetch;
   });
 
-  it('renders error modal when fetching news fails', async () => {
+  test('renders error modal when fetchin news fails', async () => {
     global.fetch = jest
       .fn()
-      .mockRejectedValue(() => new Error('Network error'));
+      .mockRejectedValue(() => new Error('Network Error'));
 
-    const {getByTestId, getByText, queryByTestId} = render(<ListNews />);
+    const {getByTestId, queryByTestId, getByText} = render(<ListNews />);
 
     await waitFor(() => expect(queryByTestId('loader')).toBeNull());
 
